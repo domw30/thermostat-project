@@ -67,4 +67,31 @@ beforeEach(function() {
       expect(thermostat.getCurrentTemperature()).toEqual(20);
     });
   });
+
+  describe('can see the current energy usage', function() {
+    describe('when the temperature is below 18 degrees', function() {
+      it('is a low-usage', function() {
+        for (var i = 0; i < 3; i++) {
+          thermostat.down();
+        }
+        expect(thermostat.usage()).toEqual('low-usage');
+      });
+    });
+
+    describe('when the temperature is 18 to 25 degrees', function() {
+      it('is a medium-usage', function() {
+        expect(thermostat.usage()).toEqual('medium-usage');
+      });
+    });
+
+    describe('when the temperature is above 25 degrees', function() {
+      it('is a high-usage', function() {
+        thermostat.PowerSaverMode = false;
+        for (var i = 0; i < 6; i++) {
+          thermostat.up();
+        }
+        expect(thermostat.usage()).toEqual('high-usage');
+      });
+    });
+  });
 });
