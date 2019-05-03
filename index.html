@@ -2,30 +2,37 @@
 <html lang="en" dir="ltr">
   <head>
     <link href="public/CSS/stylesheet.css" rel="stylesheet" type="text/css" />
+    <link rel=“stylesheet” href='https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css'>
     <meta charset="utf-8">
     <title>Thermostat</title>
     <script type="text/javascript" src="src/thermostat.js"></script>
   </head>
   <body>
-    <section>
+    <section class='Display'>
       <h1 id="temperature">TEMP</h1>
       <p>
-      <div id="container">
-       <div id="inner">
-         <div id="notches"></div>
-       </div>
-      </div>
-<div id="print"></div>
-        <button class="button" style="vertical-align:middle" id="temperature-up">+</button>
-        <button class="button" id="temperature-down">-</button>
-        <button class="button" id="temperature-reset">reset</button>
-        power saving mode is <span id="power-saving-status">on</span>
-        <button class="button" id="powersaver-on">PSM on</button>
-        <button class="button" id="powersaver-off">PSM off</button>
+        <button id="temperature-up">+</button>
+        <button id="temperature-down">-</button>
+        <button id="temperature-reset">RESET</button>
+        <button id="powersaver-on">PSM ON</button>
+        <button id="powersaver-off">PSM OFF</button>
+        <br>
+        <br>
+        <button>POWER SAVER MODE IS <span id="power-saving-status">ON</span>
       </p>
+      <br>
     </section>
-
   </body>
+  <section>
+  <h1>Current temperature: <span id="current-temperature"></span></h1>
+  <select id="current-city">
+    <option value="london">London</option>
+    <option value="paris">Birmingham</option>
+    <option value="tokyo">Liverpool</option>
+    <option value="cardiff">Cardiff</option>
+    <option value=""
+  </select>
+</section>
 </html>
 
   <script src="jquery.js"></script>
@@ -54,19 +61,35 @@ $(function() {
 
  $('#powersaver-on').click(function() {
    thermostat.isPowerSaverModeOn();
-   $('#power-saving-status').text('on')
+   $('#power-saving-status').text('ON')
    updateTemperature();
  });
 
  $('#powersaver-off').click(function() {
    thermostat.isPowerSaverModeOff();
-   $('#power-saving-status').text('off')
+   $('#power-saving-status').text('OFF')
    updateTemperature();
  });
 
  function updateTemperature() {
    $('#temperature').text(thermostat.temperature);
  }
+
+ function updateTemperature() {
+  $('#temperature').text(thermostat.temperature);
+  $('#temperature').attr('class', thermostat.usage());
+}
+
+$.get('http://api.openweathermap.org/data/2.5/weather?q=London&appid=a3d9eb01d4de82b9b8d0849ef604dbed&units=metric', function(data) {
+  $('#current-temperature').text(data.main.temp);
+})
+
+$('#current-city').change(function() {
+  var city = $('#current-city').val();
+  $.get('http://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=a3d9eb01d4de82b9b8d0849ef604dbed&units=metric', function(data) {
+    $('#current-temperature').text(data.main.temp)
+  })
+})
 
 });
 
