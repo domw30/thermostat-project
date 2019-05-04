@@ -2,23 +2,22 @@
 <html lang="en" dir="ltr">
   <head>
     <link href="public/CSS/stylesheet.css" rel="stylesheet" type="text/css" />
-    <link rel=“stylesheet” href='https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css'>
+    <script type="text/javascript" src="src/thermostat.js"></script>
     <meta charset="utf-8">
     <title>Thermostat</title>
-    <script type="text/javascript" src="src/thermostat.js"></script>
   </head>
   <body>
-    <section class='Display'>
+    <section>
       <h1 id="temperature">TEMP</h1>
       <p>
-        <button id="temperature-up">+</button>
-        <button id="temperature-down">-</button>
+        <button id="temperature-down"><</button>
+        <button id="temperature-up">></button>
         <button id="temperature-reset">RESET</button>
         <button id="powersaver-on">PSM ON</button>
         <button id="powersaver-off">PSM OFF</button>
         <br>
         <br>
-        <button>POWER SAVER MODE IS <span id="power-saving-status">ON</span>
+        <button>POWER SAVER MODE IS <span id="power-saving-status">ON</span></button>
       </p>
       <br>
     </section>
@@ -28,9 +27,10 @@
   <select id="current-city">
     <option value="london">London</option>
     <option value="paris">Birmingham</option>
-    <option value="tokyo">Liverpool</option>
+    <option value="liverpool">Liverpool</option>
     <option value="cardiff">Cardiff</option>
-    <option value=""
+    <option value="newcastle">Newcastle</option>
+    <option value="glasgow">Glasgow</option>
   </select>
 </section>
 </html>
